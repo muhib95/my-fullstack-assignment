@@ -1,6 +1,6 @@
 import React from "react";
 
-const Home = ({ setModalShow, modalShow }) => {
+const Home = () => {
   return (
     <div>
       <div className="bg-info">
