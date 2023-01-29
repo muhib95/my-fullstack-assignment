@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { AiFillGithub } from "react-icons/ai";
+import { UserContext } from "../../UseContext/UseContext";
+import { supabase } from "../../SupabaseClient/SupabaseClient";
 
 const Login = () => {
+  const { user, signInWithGitHub } = useContext(UserContext);
+  console.log(user, signInWithGitHub);
+  const gitHubLogIn = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "github",
+    });
+  };
   return (
     <div>
       <div className="w-50 m-auto bg-light my-3">
@@ -36,9 +45,9 @@ const Login = () => {
               Don't have an account? <Link to="/register">Singup </Link>
             </p>
             <p className="text-center">or</p>
-            <p className="text-center">
+            <button className="text-center" onClick={() => gitHubLogIn()}>
               <AiFillGithub></AiFillGithub>
-            </p>
+            </button>
           </div>
         </div>
       </div>
