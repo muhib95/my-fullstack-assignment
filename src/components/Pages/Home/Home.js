@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../UseContext/UseContext";
 
 const Home = () => {
+  const { homeValue } = useContext(UserContext);
+  console.log(homeValue);
   return (
     <div>
       <div className="bg-info">

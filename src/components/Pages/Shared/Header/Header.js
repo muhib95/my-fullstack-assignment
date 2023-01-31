@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,9 +7,15 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../UseContext/UseContext";
 
 const Header = ({ setModalShow }) => {
+  const { handleChange } = useContext(UserContext);
   const [page, setPage] = useState(false);
+  // console.log(handleChange);
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  // };
 
   return (
     <div>
@@ -42,7 +48,11 @@ const Header = ({ setModalShow }) => {
               </Nav.Link>
             </Nav>
 
-            <Form.Select aria-label="Default select example" className="w-25">
+            <Form.Select
+              aria-label="Default select example"
+              className="w-25"
+              onChange={(e) => handleChange(e)}
+            >
               {/* <option>Open this select menu</option> */}
               <option value="1">One</option>
               <option value="2">Two</option>

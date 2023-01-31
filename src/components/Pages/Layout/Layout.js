@@ -30,6 +30,7 @@ function MyVerticallyCenteredModal(props) {
 
 const Layout = () => {
   const [modalShow, setModalShow] = React.useState(false);
+
   return (
     <div>
       <Header setModalShow={setModalShow}></Header>
