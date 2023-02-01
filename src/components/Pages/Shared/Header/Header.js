@@ -2,13 +2,13 @@ import React, { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../UseContext/UseContext";
 import { createClient } from "@supabase/supabase-js";
+import UseAdmin from "../../../Hook/UseAdmin";
 
 const supabase = createClient(
   "https://dzxcaznxwznlwyyrunlw.supabase.co",
@@ -18,6 +18,8 @@ const supabase = createClient(
 const Header = ({ setModalShow }) => {
   const { user, handleChange } = useContext(UserContext);
   const [page, setPage] = useState(false);
+  const [isAdmin] = UseAdmin(user);
+  console.log(isAdmin);
   // console.log(handleChange);
   // const handleChange = (e) => {
   //   console.log(e.target.value);
@@ -45,7 +47,8 @@ const Header = ({ setModalShow }) => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Link to="/admin">Admin Panal</Link>
+              {isAdmin && <Link to="/admin">Admin Panal</Link>}
+
               {user ? (
                 <Nav.Link>
                   <button onClick={() => signOutUser()}>LogOut</button>
@@ -53,19 +56,6 @@ const Header = ({ setModalShow }) => {
               ) : (
                 <></>
               )}
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
             </Nav>
 
             <Form.Select
