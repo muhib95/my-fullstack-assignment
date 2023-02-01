@@ -30,20 +30,22 @@ const Register = () => {
     // const d = register(datas.email, datas.password);
 
     signUpWithEmails(datas);
+    console.log(datas);
+    fetch("http://localhost:5000/users", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datas),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-
-  // async function signInWithEmail(e) {
-  //   const email = e.email;
-  //   const password = e.password;
-  //   console.log(e);
-  //   const { data, error } = await supabase.auth.signUp({
-  //     email,
-  //     password,
-  //     data: {
-  //       confirmation_sent_at: Date.now(),
-  //     },
-  //   });
-  // }
 
   return (
     <div className="w-50 m-auto bg-light my-3">

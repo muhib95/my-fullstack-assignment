@@ -45,7 +45,7 @@ const Header = ({ setModalShow }) => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Home</Nav.Link>
+              <Link to="/admin">Admin Panal</Link>
               {user ? (
                 <Nav.Link>
                   <button onClick={() => signOutUser()}>LogOut</button>
@@ -74,12 +74,17 @@ const Header = ({ setModalShow }) => {
               onChange={(e) => handleChange(e)}
             >
               {/* <option>Open this select menu</option> */}
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value=" Arbitrum Rinkeby"> Arbitrum Rinkeby</option>
+              <option value=" Avalanche Fuji"> Avalanche Fuji</option>
+              <option value="BNB Chain Testnet">BNB Chain Testnet</option>
+              <option value="Ethereum Rinkeby">Ethereum Rinkeby</option>
+              <option value=" Fantom Testnet"> Fantom Testnet</option>
+              <option value="Harmony Testnet"> Harmony Testnet</option>
+              <option value="POA Network Sokol"> POA Network Sokol</option>
+              <option value=" Polygon Mumbai"> Polygon Mumbai</option>
             </Form.Select>
             <Button variant="primary" onClick={() => setModalShow(true)}>
-              Launch vertically centered modal
+              Connect Wallet
             </Button>
             <div className="position-relative">
               <Button

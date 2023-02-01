@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UseContext/UseContext";
 
 const Login = () => {
-  const { signInWithEmails } = useContext(UserContext);
+  const { signInWithEmails, signInWithGitHub } = useContext(UserContext);
   const navigate = useNavigate();
   const [datas, setData] = useState({});
 
@@ -26,7 +26,9 @@ const Login = () => {
       navigate("/");
     });
   };
-
+  const handleDiscord = () => {
+    signInWithGitHub();
+  };
   return (
     <div>
       <div className="w-50 m-auto bg-light my-3">
@@ -39,6 +41,7 @@ const Login = () => {
               <button>Submit</button>
             </form>
           </div>
+          <button onClick={() => handleDiscord()}>Discord</button>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import Home from "../Pages/Home/Home";
 import Layout from "../Pages/Layout/Layout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import AdminPanal from "../Pages/Admin/AdminPanal";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/faq",
         element: <Faq></Faq>,
+      },
+      {
+        path: "/admin",
+        element: <AdminPanal></AdminPanal>,
       },
     ],
   },

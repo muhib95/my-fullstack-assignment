@@ -52,11 +52,11 @@ const UseContext = ({ children }) => {
     });
   }, []);
 
-  const signInWithGitHub = async () => {
-    return await supabase.auth.signInWithOAuth({
-      provider: "github",
+  function signInWithGitHub() {
+    return supabase.auth.signInWithOAuth({
+      provider: "discord",
     });
-  };
+  }
 
   console.log(user);
   const userInfo = {
