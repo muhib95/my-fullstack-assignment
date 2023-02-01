@@ -1,53 +1,43 @@
-import React, { useContext } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { AiFillGithub } from "react-icons/ai";
+import React, { useContext, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+// import { UserContext } from "../../UseContext/UseContext";
+
 import { UserContext } from "../../UseContext/UseContext";
-import { supabase } from "../../SupabaseClient/SupabaseClient";
 
 const Login = () => {
-  const { user, signInWithGitHub } = useContext(UserContext);
-  console.log(user, signInWithGitHub);
-  const gitHubLogIn = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "github",
+  const { signInWithEmails } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [datas, setData] = useState({});
+
+  const updateData = (e) => {
+    setData({
+      ...datas,
+      [e.target.name]: e.target.value,
     });
   };
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    signInWithEmails(datas).then((data) => {
+      console.log(data.data.user);
+      navigate("/");
+    });
+  };
+
   return (
     <div>
       <div className="w-50 m-auto bg-light my-3">
-        <h2 className="text-center">Sign up</h2>
+        <h2 className="text-center">Sign In</h2>
         <div>
-          <Form>
-            <Form.Group className="mb-3" controlId="formGroupEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                className="border border-top-0 border-end-0 border-start-0 border-bottom border-bottom border-black border-4"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                className="border border-top-0 border-end-0 border-start-0 border-bottom border-bottom border-black border-4"
-              />
-            </Form.Group>
-            <Button className="w-100" variant="primary">
-              Sign Up
-            </Button>
-          </Form>
           <div>
-            <p className="text-center">
-              Don't have an account? <Link to="/register">Singup </Link>
-            </p>
-            <p className="text-center">or</p>
-            <button className="text-center" onClick={() => gitHubLogIn()}>
-              <AiFillGithub></AiFillGithub>
-            </button>
+            <form onSubmit={submit}>
+              <input name="email" type="email" onChange={updateData} />
+              <input name="password" type="password" onChange={updateData} />
+              <button>Submit</button>
+            </form>
           </div>
         </div>
       </div>

@@ -6,17 +6,31 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FaRegUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../UseContext/UseContext";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://dzxcaznxwznlwyyrunlw.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6eGNhem54d3pubHd5eXJ1bmx3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzUxNzkwNTUsImV4cCI6MTk5MDc1NTA1NX0.lBUqrmQf61_AXrqX8KctmoUETGp7H9DnAm3zkzWUGH0"
+);
 
 const Header = ({ setModalShow }) => {
-  const { handleChange } = useContext(UserContext);
+  const { user, handleChange } = useContext(UserContext);
   const [page, setPage] = useState(false);
   // console.log(handleChange);
   // const handleChange = (e) => {
   //   console.log(e.target.value);
   // };
+  // const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
+  async function signOutUser() {
+    await supabase.auth.signOut();
+    navigate("/login");
+    window.location.reload();
+  }
+  console.log(user);
   return (
     <div>
       <Navbar bg="light" expand="lg" className=" p-3">
@@ -32,7 +46,13 @@ const Header = ({ setModalShow }) => {
               navbarScroll
             >
               <Nav.Link href="#action1">Home</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
+              {user ? (
+                <Nav.Link>
+                  <button onClick={() => signOutUser()}>LogOut</button>
+                </Nav.Link>
+              ) : (
+                <></>
+              )}
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">
